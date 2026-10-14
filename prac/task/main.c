@@ -31,17 +31,13 @@ int main(void)
     while (1);
 }
 
-/**
-  * @brief  Hàm di?u khi?n nháy LED chung cho các Task
-  * @param  pvParameters: Con tr? c?u hình ki?u LED_Config_t
-  */
 void vLedBlinkTask(void *pvParameters)
 {
     LED_Config_t *pConfig = (LED_Config_t *)pvParameters;
 
-    uint32_t toggle_delay_ms = (uint32_t)(1000.0f / (2.0f * pConfig->frequency));
+    uint32_t delay_ms = (uint32_t)(1000.0f / (2.0f * pConfig->frequency));
 
-    TickType_t xDelayTicks = pdMS_TO_TICKS(toggle_delay_ms);
+    TickType_t xDelayTicks = pdMS_TO_TICKS(delay_ms);
 
     for (;;)
     {
@@ -51,9 +47,6 @@ void vLedBlinkTask(void *pvParameters)
     }
 }
 
-/**
-  * @brief C?u hình GPIOA (PA0, PA1, PA2) làm Out Push-Pull
-  */
 void GPIO_Configuration(void)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
